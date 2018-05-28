@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script type="text/javascript">  
+    $(document).ready(function() { 
+
+    // The event listener for the file upload
+    document.getElementById('txtFileUpload').addEventListener('change', upload, false);
+
+    // Method that checks that the browser supports the HTML5 File API
+    function browserSupportFileUpload() {
+        var isCompatible = false;
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+        isCompatible = true;
+        }
+        return isCompatible;
+    }
+        
+    function csvJSON(csv){
+
+      var lines=csv.split("\r");
+      var result = [];
+      var headers=lines[0].split(";");
+
+      for(var i=1;i<(lines.length -1);i++){
+          var obj = {};
+          var currentline=lines[i].split(";");
+          for(var j=0;j<headers.length;j++){
+              obj[headers[j]] = currentline[j].trim();
+          }
+          result.push(obj);
+      }
+
+      //return result; //JavaScript object
+      //return JSON.stringify(result); //JSON
+      return result;
+    }
+
+    // Method that reads and processes the selected file
+    function upload(evt) {
+        if (!browserSupportFileUpload()) {
+            alert('The File APIs are not fully supported in this browser!');
+            } else {
+                //var data = null;
+                var file = evt.target.files[0];
+                var reader = new FileReader();
+                reader.readAsText(file);
+                reader.onload = function(event) {
+                    var csvData = event.target.result;
+                    data = csvJSON(csvData);
+                    data = data.filter(function(item){
+                        return item.BETREIBER_NAME === 'Schweizerische Bundesbahnen SBB' && (item.HALTESTELLEN_NAME === 'Spiez' || item.HALTESTELLEN_NAME === 'Arth-Goldau') && item.LINIEN_TEXT.indexOf('S') === -1 && item.ZUSATZFAHRT_TF != 'true';
+                    });
+                    if (data && data.length > 0) {
+                        alert('Imported -' + data.length + '- rows successfully!');
+                        console.log(data);
+                    } else {
+                        alert('No data to import!');
+                    }
+                };
+                reader.onerror = function() {
+                    alert('Unable to read ' + file.fileName);
+                };
+            }
+        }
+    });
+</script>
+    </head>
+    <body>
+        <div id="dvImportSegments" class="fileupload ">
+    <fieldset>
+        <legend>Upload your CSV File</legend>
+        <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" />
+    </fieldset>
+    </div>
+    </body>
+</html>

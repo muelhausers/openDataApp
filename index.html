@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <title>Versp&auml;tungsdaten der SBB</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="icon" href="pictures/favicon.gif" type="image/gif" sizes="16x16"> <!-- favicon -->
+        
+    </head>
+    
+    <body>
+        <!-- navigation -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#"><img src="pictures/sbb_logo.png" width="200" height="20"/></a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mydropdown">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="mydropdown">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#data">Datenvisualisierung</a></li>
+                        <li><a href="#story">Story</a></li>
+                        <li><a href="#impressum">Impressum</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- end of navigation -->
+        
+        <!-- container fluid content -->
+        <div class="container-fluid">
+            
+            <!-- modal line popup -->
+            <div class="modal" id="dataModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" type="button" data-dismiss="modal">X</button>
+                            <h2 class="modal-title">Versp&auml;tung </h2>
+                        </div>
+                        <div class="modal-body">
+                            <p>Das Kreisdiagramm zeigt Ihnen auf, welcher Zug Typ wie oft, gemessen an den totalen Versp&auml;tungen dieser Strecke, Versp&auml;tung hatte.</p>
+                            <svg id="svgPopup"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of modal line popup -->
+            
+            <!-- modal image popup -->
+            <div id="imageModal" class="imagemodal">
+
+                <!-- The Close Button -->
+                <span class="imageclose" id="closeBtn">&times;</span>
+
+                <!-- Modal Content (The Image) -->
+                <img class="imagemodalcontent" id="image">
+
+                <!-- Modal Caption (Image Text) -->
+                <div id="caption"></div>
+            </div>
+            <!-- end of modal image popup -->
+            
+            <!-- modal neat popup -->
+            <div class="modal" id="neatModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" type="button" data-dismiss="modal">X</button>
+                            <h3 class="modal-title">Hintergrundinformationen: Das NEAT-Konzept</h3>
+                        </div>
+                        <div class="modal-body story_text">
+                            <p>
+                                Die NEAT, die Neue Eisenbahn-Alpentransversale, ist ein zentrales Element des Ausbaus und der Modernisierung der schweizerischen Schieneninfrastruktur.
+                            </p>
+                            <p>
+                                Zur NEAT z&auml;hlen haupts&auml;chlich die drei neuen Basistunnel am Gotthard, am L&ouml;tschberg sowie am Monte Ceneri (geplante Inbetriebnahme zum Fahrplanwechsel 2020/21) mit Ausbauten auf den Zufahrtsstrecken. Mit diesem Jahrhundertwerk will der Bund f&uuml;r den G&uuml;ter- wie den Personenverkehr eine attraktive Alternative 
+                                zur Strasse bieten. Neue Nord-S&uuml;d-Verbindungen mit wesentlichen Angebots- und Kapazit&auml;tserweiterungen sollen eine Verlagerung
+                                des alpenquerenden Verkehrs von der Strasse auf die Schiene erm&ouml;glichen und so die Strasse entlasten. Im Rahmen dieser Verlagerungspolitik wird die NEAT mit Hilfe eines Spezialfonds finanziert, der zu einem grossen Teil aus der leistungsabh&auml;ngigen Schwerverkehrsabgabe (LSVA), aus Anteilen der Mehrwertsteuer und aus Mineral&ouml;lsteuermitteln gespeist wird.
+                            </p>
+                            <p>
+                                Die Schweizer Stimmb&uuml;rgerinnen und Stimmb&uuml;rger haben dem NEAT-Konzept 1992 und dem entsprechenden Finanzierungs- modell 1998 (FinöV) mit deutlichen Mehrheiten zugestimmt.
+                            </p>
+                            <a href="https://www.bls.ch/-/media/bls/pdf/broschueren/broschuere-neat-loetschbergtunnel.pdf?la=de&vs=1" target="_blank" class="neat_link">BLS Brosch&uuml;re</a><br />
+                            <a href="https://company.sbb.ch/content/dam/sbb/de/pdf/sbb-konzern/medien/hintergrund-dossier/Gotthard/Basispraesentation_Gotthard_TP_KOM_PONS_de_2016.pdf" target="_blank" class="neat_link">SBB Gotthard Brosch&uuml;re</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of neat line popup -->
+            
+            <!-- data visualization -->
+            <div class="row max-padding" style="text-align:center">
+                <h1 id="data">Datenvisualisierung Versp&auml;tungen der SBB</h1>
+                <p>Die Schweiz ist ein &ouml;V-Land und steht seit Jahrhunderten im Mittelpunkt der Nord-S&uuml;d-Achse Europas. Anhand von Versp&auml;tungsdaten der SBB soll die Problematik von sogenannten Knotenbahnh&ouml;fen, die eine direkte Nord-S&uuml;d-Verbindung besitzen, untersucht werden.</p><br />
+                <p>
+                    <img src="pictures/clock.jpg" class="img-circle" width="170px" height="120px" />
+                    <img src="pictures/train_people.jpg" class="img-circle" width="170px" height="120px" />
+                    <img src="pictures/train.jpg" class="img-circle" width="170px" height="120px" />
+                </p>
+			</div>
+            <div class="row">
+				<div class="col-lg-6" id="spiez" style="text-align:center">
+                    <svg id="svgSpiez"></svg>
+                    <i class="fa">&#xf07d;</i> relative Anzahl Z&uuml;ge zur Gesamtmenge
+                </div>
+				<div class="col-lg-6" id="goldau" style="text-align:center">
+                    <svg id="svgGoldau"></svg>
+                    <i class="fa">&#xf07d;</i> relative Anzahl Z&uuml;ge zur Gesamtmenge
+                </div>
+			</div>
+            <!-- end of data visualization -->
+            
+            <!-- story -->
+            <div class="row max-padding">
+                <h1 id="story" style="text-align:center">Story</h1>
+                <div class="col-lg-6 story_text">
+                    <h3>Ausgangslage</h3>
+                    <p>
+                        Im Rahmen der Veranstaltung &quot;&uuml;bung Open Data&quot; an der Universit&auml;t Bern von Herr Dr. Matthias St&uuml;rmer setzen wir uns mit Visualisierungen von OpenData auseinander. 
+                        Wir haben uns f&uuml;r die &ouml;ffentlichen Daten der Open-Data-Plattform &ouml;V Schweiz entschieden.
+                    </p>
+                    <p>
+                        In den Medien ist immer wieder zu lesen, die SBB k&auml;mpfe mit Versp&auml;tungen etc., auch verschiedene Open Data Apps / Visualisierungen befassen sich mit der Versp&auml;tungsthematik des &ouml;Vs. Anhand der Versp&auml;tungsdaten wollen wir einen etwas anderen Aspekt dieser Thematik beleuchten und die Versp&auml;tungs-Problematik des Knotenbahnhofs Spiez untersuchen. Der Bahnhof Arth-Goldau wird als Vergleich verwendet um allf&auml;llige Gr&uuml;nde zu erkennen, was optimiert werden k&ouml;nnte. Die Kriterien f&uuml;r den Vergleichsbahnhof, hier Arth-Goldau, sind: geografische Lage, &auml;hnliche Gr&ouml;sse des Bahnhofs und eine direkte Nord-S&uuml;d-Verbindung. 
+                    </p>
+                    <p>
+                        An dieser Stelle sei erw&auml;hnt, dass wir uns bei den Daten nur auf die Versp&auml;tungsdaten der SBB konzentrieren und nur Personenz&uuml;gen ber&uuml;cksichtigen, der ganze G&uuml;terverkehr wurde nicht analysiert. Uns ist bewusst, dass die Zugverbindungen der BLS oder anderer regionaler Bahnunternehmen einen grossen Einfluss auf unseren ausgew&auml;hlten Bahnh&ouml;fen haben. In unserer Analyse stehen jedoch die jeweiligen Hauptachsen der Knotenpunkte im Vordergrund, als Beispiel: Die BLS betreibt keine direkte Zugverbindung von Spiez nach Visp. Somit haben wir uns entschieden nur die Zugverbindungen der SBB zu ber&uuml;cksichtigen.
+                        Bei unserer Visualisierung haben wir festgelegt, dass eine Verbindung, die vorzeitig, p&uuml;nktlich oder mit weniger als 3 Minuten Versp&auml;tung ankommt, p&uuml;nktlich ist. Alle Verbindungen mit &uuml;ber 3 Minuten Versp&auml;tung gelten als versp&auml;tet.
+                        Mit dieser Ausgangslage haben wir uns ans Werk gemacht und eine geeignete Web-Applikation entwickelt.
+                    </p>
+                </div>
+                <div class="col-lg-6 story_text">
+                    <h3>Daten</h3>
+                    <p>
+                        In der Visualisierung unserer App wurden die IST-Daten der <a href="https://opentransportdata.swiss/de/dataset/istdaten" target="_blank" class="neat_link">Open-Data-Plattform &ouml;V Schweiz</a> verwendet. Diese Daten liegen in einem CSV-File bereit, in welchem jeweils ein einzelner Tag der schweizweiten Verbindungen aufgelistet ist. Ein Datensatz beinhaltet immer die Haltestelle, die Linien-ID, die Zugart und -nummer (z.B. IC1), die Ab- und Ankunftszeiten nach Zeitplan und die effektiven Ab- und Ankunftszeiten.
+                    </p>
+                    <p>
+                        F&uuml;r unsere Applikation mussten die Daten zuerst in eine geeignete Form gebracht werden. Dazu wurden aus dem gesamten CSV-File, welches rund 1'050'000 Datens&auml;tze beinhaltet, das Subset f&uuml;r Spiez und Arth-Goldau (ca. 200 Datens&auml;tze) gezogen. Dies wurde mit einer einfachen Javascript-Funktion gemacht. Da der Datensatz nur die Haltestelle beinhaltet, jedoch aber die Herkunft des Zuges nicht abgebildet ist, mussten wir dieses Mapping von Hand machen. Leider werden die Linien-IDs pro gefahrener Zug vergeben und nicht immer f&uuml;r die selbe Strecke (z.B. Thun-Spiez).
+                    </p>
+                    <p>
+                        Die Daten wurden schliesslich als JSON-Files der Applikation hinzugef&uuml;gt und k&ouml;nnen so schnell ausgelesen und verarbeitet werden.
+                    </p>
+                </div>
+                
+			</div>
+            <div class="row max-padding">
+                <div class="col-lg-6 story_text">
+                    <h3>Bedienungsanleitung der App</h3>
+                    <p>
+                        Auf der linken Seite ist der Bahnhof Spiez abgebildet, auf der rechten Seite der Bahnhof Arth-Goldau. Jeweils in der Mitte der Abbildung befinden sich unsere erw&auml;hnten Knotenbahnh&ouml;fe, diese sind &uuml;ber die Verbindungslinien mit den gr&ouml;sseren Ortschaften (jeweils 3), welche eine direkte Zugverbindung zu Spiez oder Arth-Goldau haben, verbunden. 
+                    </p>
+                    <img class="manualImg" src="pictures/manual1.jpg" alt="Train SBB 1" width="420" height="130">
+                    <img class="manualImg" src="pictures/manual2.jpg" alt="Train SBB 2" width="420" height="130">
+                    <p>
+                        Die Farbe der Verbindungslinie zeigt an, wieviel Z&uuml;ge aller ankommenden Z&uuml;ge Versp&auml;tung haben am Ankunftsbahnhof (in Prozent % ausgedr&uuml;ckt). Wenn die Farbe Gr&uuml;n ist, haben unter 3% aller ankommenden Z&uuml;ge Versp&auml;tung, die Farbe Orange bedeutet unter 10% aller Z&uuml;ge haben Versp&auml;tung, Rot steht f&uuml;r &uuml;ber 10% der Z&uuml;ge haben Versp&auml;tungen.
+                        Die Breite der Linien zeigt an um wie viele Z&uuml;ge es sich handelt, viele Z&uuml;ge somit eine breitere Linie, weniger Z&uuml;ge eine d&uuml;nnere Linie.
+                    </p>
+                    <img class="manualImg" src="pictures/manual3.jpg" alt="Train SBB 2" width="420" height="130">
+                    <p>
+                        F&auml;hrt man mit seinem Cursor &uuml;ber die Verbindungslinien der Ortschaften erscheint ein Tooltip welches Ihnen die absolute Anzahl Z&uuml;ge anzeigt, sowie die genau Anzahl Versp&auml;tungen in Prozent ausgedr&uuml;ckt dieser Verbindung.
+                    </p>
+                    <p>
+                        Klicken Sie auf die Verbindungslinie &ouml;ffnet sich ein Pop-Up Fenster mit einem Kreisdiagramm, dass Ihnen detailliertere Informationen zu den Versp&auml;tungen anzeigt. Sie sehen anhand des Kreisdiagramms, welcher Zug Typ (ICE, IC, EC, IR) die Versp&auml;tungen hatte. Auch hier, wenn Sie &uuml;ber das Kreisdiagramm mit Ihrem Cursor fahren, erscheint ein Tooltip mit den absoluten Zahlen. 
+                    </p>
+                </div>
+                <div class="col-lg-6 story_text">
+                    <h3>Vorgehen</h3>
+                    <p>Anhand der Fragen, die wir uns gestellt haben und Schwierigkeiten die w&auml;hrend des Entwicklungsprozesses aufgetaucht sind, zeigen wir hier unsere Vorgehensweise auf:</p>
+                    <ol>
+                        <li>
+                            Auswahl der zur Verf&uuml;gung gestellten &ouml;ffentlichen Daten: Open Data &ouml;V Schweiz
+                        </li>
+                        <li>
+                            Welche Informationen wollen wir aus den Daten holen: Da zurzeit (Fr&uuml;hlingssemester 2018) Versp&auml;tungen der SBB in den Medien wieder ein pr&auml;senteres Thema ist, entschieden wir uns f&uuml;r die Versp&auml;tungsdaten.
+                        </li>
+                        <li>
+                            Welche Geschichte m&ouml;chten wir mit unseren Daten erz&auml;hlen, m&uuml;ssen wir Einschr&auml;nkungen vornehmen:<br /> 
+                            Wir konzentrieren uns mit der Visualisierung auf zwei sogenannte &quot;Knotenbahnh&ouml;fe&quot;. Zum einen befassen wir uns mit dem Bahnhof Spiez, der zweite Bahnhof ist Arth-Goldau. Nun wieso gerade diese zwei Bahnh&ouml;fe, zum einen wurde mit der Webseite www.puenktlichkeit.ch einen &quot;guten&quot; (Arth-Goldau) und einen &quot;schlechteren&quot; (Spiez) in Bezug auf die Ankunfts-Versp&auml;tungsdaten ausgesucht. Spiez, wie auch Arth-Goldau besitzen jeweils drei Hauptachsen zu gr&ouml;sseren Ortschaften. Beide Bahnh&ouml;fe sollen eine &auml;hnliche Gr&ouml;sse aufweisen, Spiez besitzt f&uuml;nf, Arth-Goldau sechs Perrongleise. Ausserdem beide Bahnh&ouml;fe besitzen eine direkte Verbindung von Norden nach S&uuml;den, Spiez nach Visp durch den L&ouml;tschberg-Basistunnel und Arth-Goldau nach Bellinzona durch den Gotthard-Basistunnel, beide Tunnels geh&ouml;ren zum <a href="#" data-toggle="modal" data-target="#neatModal" class="neat_link">NEAT-Konzept</a>. 
+                            Die Frage die sich uns nun stellt ist, k&ouml;nnen wir durch einen Vergleich zwischen den Bahnh&ouml;fen anhand der Ankunftsversp&auml;tungen m&ouml;gliche Gr&uuml;nde f&uuml;r den &quot;schlechteren&quot; Bahnhof Spiez feststellen respektive welche Problematik weisen Knotenbahnh&ouml;fe auf?
+                        </li>
+                        <li>
+                            In einem n&auml;chsten Schritt wurden die LinienID der jeweils drei Herkunftsorte bestimmt. F&uuml;r den Bahnhof Spiez sind dies die Herkunftsorte: Interlaken, Visp und Thun, f&uuml;r Arth-Goldau sind dies: Zug, Luzern und Bellinzona. Das Schwierige am Aussuchen der LinienID war vorallem die unterschiedlichen Tage, wie Feiertage oder Wochenendtage, da hier wiederum andere respektive zus&auml;tzliche Z&uuml;ge ber&uuml;cksichtigt werden m&uuml;ssen.
+                        </li>
+                        <li>
+                            Als n&auml;chster Schritt stand die technische Umsetzung im Vordergrund. Mithilfe der JavaScript Bibliothek <a href="https://d3js.org/" target="_blank" class="neat_link">D3.js</a> wurde zuerst die Visualisierungsgrafik erarbeitet. Dabei zu erw&auml;hnen ist, dass unsere gesamte App auf keinerlei Code Snippets aufbaut, sondern eine eigene Entwicklung angestrebt wurde um m&ouml;glichst viel zu lernen. Weiter wurde die JavaScript Bibliothek <a href="https://jquery.com/" target="_blank" class="neat_link">jQuery</a> f&uuml;r die Manipulation von dynamischen Inhalten und das HTML/CSS Tookit <a href="https://getbootstrap.com/" target="_blank" class="neat_link">Bootstrap</a> f&uuml;r die Darstellung verwendet. 
+                        </li>
+                        <li>
+                            Nach der Entwicklung der Visualisierung konnte mit der Interpretation der Daten begonnen werden und nach m&ouml;glichen Antworten der Fragestellung zu suchen.
+                        </li>
+                        <li>
+                            Als letzten Punkt, das Beschreiben der App, der Daten und weitere gewonnene Erkenntnisse aus dem ganzen Entwicklungsprozess.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row max-padding">
+                <div class="col-lg-6 story_text">
+                    <h3>Interpretation der Visualisierung</h3>
+                    <p>
+                        Auf den ersten Blick ist mittels Farben erkenntlich, dass der Bahnhof Spiez mehr versp&auml;tete ankommende Z&uuml;ge aufweist als der Arth-Goldau (mehr rote Verbindungslinien als Gr&uuml;ne). In relativen Zahlen heisst das: 12.8 % aller ankommenden Z&uuml;ge in Spiez haben Versp&auml;tung, hingegen weist Arth-Goldau eine Versp&auml;tungsrate von 6.0% auf, eine Differenz von 6.8%. Nun wie kommt denn diese deutlich h&ouml;here Versp&auml;tungsrate am Bahnhof Spiez zu Stande? Im Folgenden versuchen wir anhand der Visualisierung einige m&ouml;gliche Antworten auf diese Frage zu finden:
+                    </p>
+                    <p>
+                        Anhand der Breite der Verbindungslinien ist festzustellen, dass der Bahnhof Spiez deutlich mehr ankommende Z&uuml;ge hat als Arth-Goldau. In Zahlen ausgedr&uuml;ckt bedeutet dies: Der Bahnhof Spiez hat im Zeitraum vom 01.01.2018 bis 29.05.2018 15'042 ankommende Z&uuml;ge, hingegen hat der Bahnhof Arth-Goldau lediglich 12'623 Z&uuml;ge, eine absolute Differenz von 2419 Z&uuml;ge. Auf einen Tag ausgerechnet sind dies ungef&auml;hr 16.2 Z&uuml;ge pro Tag mehr, welche in Spiez ankommen. Diese grosse Anzahl Z&uuml;gen wirkt sich dementsprechend auf die Hauptachsen aus. Bei den vorgestellten Zahlen handelt es sich lediglich um die Verbindungen der SBB. F&uuml;r die BLS ist der Bahnhof Spiez jedoch ein wichtiger und zentraler Bahnhof, wenn s&auml;mtliche Verbindungen der BLS zus&auml;tzlich ber&uuml;cksichtigt werden, ist klar, dass dieser Knotenbahnhof eine sehr grosse Anzahl an Verbindungen resp. Z&uuml;gen bewerkstelligen muss. 
+                    </p>
+                    <p>
+                        Der n&auml;chste Aspekt unserer Fragestellung ist der Vergleich zwischen den beiden Nord-S&uuml;d-Achsen resp. den NEAT-Tunnels, der L&ouml;tschberg-Basistunnel und der Gotthard-Basistunnel. Auch hier ist auf den ersten Blick erkennbar, dass die Verbindung zwischen Visp - Spiez mehr Versp&auml;tung (18.2%) aufweist, als die Verbindung zwischen Bellinzona - Arth-Goldau (6.3%) und zwar eine Differenz von 11.9%. Nun die Frage, verkehren dann mehr Z&uuml;ge durch den L&ouml;tschberg als durch den Gotthard, anhand der absoluten Zahlen, L&ouml;tschberg: 3581 Z&uuml;gen gegen&uuml;ber den Gotthard: 4775 Z&uuml;ge, k&ouml;nnen wir dies jedoch verneinen.
+                        Woran liegt es dann? Wenn man bei der BLS nachforscht entdeckt man schnell das Thema &quot;Ausbau des L&ouml;tschberg-Basistunnel&quot;.  An dieser Stelle wird die BLS zitiert: <i>&quot;Der L&ouml;tschberg-Basistunnel ist heute bis an die Grenze ausgelastet. Grund daf&uuml;r ist einerseits das rasante Wachstum des Personen- und G&uuml;terverkehrs, anderseits die begrenzte Kapazit&auml;t aufgrund des langen Einspurabschnittes. Die lange einspurige Strecke von 21 Kilometern verunm&ouml;glicht eine Ausweitung des Personen- und G&uuml;terverkehrs, engt den Spielraum in der Fahrplangestaltung stark ein und f&uuml;hrt zu hohen Betriebskosten. Ein Doppelspurausbau ist deshalb zwingend n&ouml;tig.&quot;</i>
+                        <a href="https://www.bls.ch/de/unternehmen/projekte-und-hintergruende/neat" target="_blank" class="neat_link">(BLS NEAT)</a>
+                    </p>
+                    <p>
+                        Das Thema wird auch in der Politik und der Wirtschaft ausf&uuml;hrlich diskutiert, hier einige Beispiele aus der Medienmitteilung der BLS vom 23. Juni 2017:
+                    </p>
+                    <ul>
+                        <li>
+                            <b>Barbara Egger-Jenzer, Berner Regierungsr&auml;tin und Verkehrsdirektorin</b>: <i>&quot;Die L&ouml;tschberg-Basisstrecke geh&ouml;rt fertiggebaut. Sie st&auml;rkt den nationalen Zusammenhalt und sichert den direkten Anschluss der Hauptstadtregion an den wichtigsten europ&auml;ischen Nord-S&uuml;dkorridor. 14 Kilometer davon im Berg teuer auszubrechen, und dann im Rohbau zu belassen, grenzt an Schildb&uuml;rgerei.&quot;</i> <a href="https://www.bls.ch/-/media/bls/pdf/medienmitteilungen/20170623_mm-10-jahre-neat-anlass_deutsch.pdf?la=de&vs=1" target="_blank" class="neat_link">(BLS Medienmitteilung)</a>
+                        </li>
+                        <li>
+                            <b>Viola Amherd, Nationalr&auml;tin CVP und Gesch&auml;ftsf&uuml;hrerin L&ouml;tschbergkomitee</b>: <i>&quot;Der L&ouml;tschberg-Basistunnel ist heute beim Personen- wie auch beim G&uuml;terverkehr vollst&auml;ndig ausgelastet. Deshalb sind wir von der Notwendigkeit des Ausbaus &uuml;berzeugt. Insbesondere auch, weil damit mehr Stabilit&auml;t im gesamten schweizerischen Bahnsystem erreicht werden kann. Ein Ausbau ist daher im Interesse des ganzen Landes.&quot;</i> <a href="https://www.bls.ch/-/media/bls/pdf/medienmitteilungen/20170623_mm-10-jahre-neat-anlass_deutsch.pdf?la=de&vs=1" target="_blank" class="neat_link">(BLS Medienmitteilung)</a>
+                        </li>
+                    </ul>
+                    <p>
+                        Diese Aussagen sollen die Wichtigkeit dieses Thema hervorheben. Der Ausbau des L&ouml;tschberg-Basistunnel wird zur Stabilit&auml;t der wachsenden Anforderungen an das Schienennetz, wie auch des &ouml;Vs als Ganzes beitragen.
+                    </p>
+                    <p>
+                        Abschliessend sei gesagt, diese Visualisierung zeigt nur einen kleinen Teil der Problematik mit Knotenbahnh&ouml;fen und Nord-S&uuml;d-Achsen auf. Die Daten wurden vereinfacht und entsprechende Einschr&auml;nkungen wurden vorgenommen. Nichts desto trotz kann anhand &ouml;ffentlich zug&auml;nglichen Daten aufgezeigt werden, wo verschiedene Problemzonen im &ouml;V-Netz vorhanden sind und m&ouml;gliche Erkenntnisse daraus ableiten.
+                    </p>
+                </div>
+                <div class="col-lg-6 story_text">
+                    <h3>Lessons Learned</h3>
+                    <ul>
+                        <li>
+                            Bevor man sich auf einen Datensatz festlegt, sollte man sich die Frage stellen, kann ich daraus eine spannende und interessante Geschichte ableiten resp. was will ich dem Benutzer erz&auml;hlen/aufzeigen.
+                        </li>
+                        <li>
+                            Die Aufbereitung der Daten f&uuml;r die Visualisierung hat eine gr&ouml;ssere Bedeutung als zuerst angenommen. Zu Beginn hat man seine ausgew&auml;hlten Daten und denkt, kein Problem damit entwickeln wir nun eine Open Data App. Je l&auml;nger und intensiver man sich jedoch mit seinen gew&auml;hlten Daten auseinandersetzt, wird man feststellen, dass die Daten einerseits nicht alles erlauben und zweitens sicher bei unseren Daten mit dieser Gr&ouml;sse ganz klare Einschr&auml;nkungen gemacht werden m&uuml;ssen.
+                        </li>
+                        <li>
+                            Wie gehe ich ein Projekt an, wo zu Beginn nur Rohdaten zur Verf&uuml;gung stehen. In der Vorlesung wird einem zuerst das theoretische Konstrukt vorgestellt, welche Schritte bei der Visualisierung von Open Data durchlaufen werden. Wie so oft, f&uuml;r seine eigene Visualisierung sind dann nicht alle Schritte relevant, hat man auf jeden Fall zu Beginn das Gef&uuml;hl, um dann sp&auml;ter im Entwicklungsprozess zur&uuml;ckzukehren um genau diesen ausgelassenen Schritt doch noch zu machen.
+                        </li>
+                        <li>
+                            Programmierkenntnisse aneignen und vertiefen. Die Kenntnisse konnten in unserem Team nicht unterschiedlicher sein. Sandro hatte bereits gr&ouml;ssere Kenntnisse und Kevin war ein absoluter Neuling. Diese grossen Unterschiede erg&auml;nzten sich jedoch hervorragend, Sandro konnte seine Kenntnisse auffrischen und weiter vertiefen, w&auml;hrend Kevin, mit Sandro einen super Lehrer zur Seite stand und somit viele Erfahrungen sammeln konnte im Bereich der Web-basierten Sprachen.
+                        </li>
+                        <li>
+                            Entscheidungen treffen. Zu Beginn viele Ideen wie die App aussehen k&ouml;nnte um mit der Zeit zu erkennen, was erlauben meine Daten &uuml;berhaupt zur Visualisierung. Ausserdem stellt sich die Frage wollen wir eine super farbige, fantasievolle App entwickeln, die keiner versteht oder fokussieren wir uns auf den Benutzer und entwickeln eine eher bedienungsfreundliche, &uuml;bersichtliche App.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- end of story -->
+            
+            <!-- impressum -->
+            <div class="row max-padding" style="text-align:center">
+                <div class="col-lg-12">
+                    <h1 id="impressum">Impressum</h1>
+                    <p class="impressum">Diese Applikation wurde in Zusammenarbeit mit den Versp&auml;tungsdaten der Open Transport Data Platform erstellt.</p>
+                    <p class="impressum">Daten: <a href="https://opentransportdata.swiss/de/dataset/istdaten" target="_blank" class="impressum_link">Open-Data-Plattform &ouml;V Schweiz</a></p>
+                    <p>
+                        <img src="pictures/mail_icon.png" width="24px" height="24px" />
+                        <a href="mailto:rahel.ryf@sbb.ch" target="_blank" class="impressum_link">Rahel Ryf, </a>
+                        <a href="mailto:kevin.buerklin@students.unibe.ch" target="_blank" class="impressum_link">Kevin B&uuml;rklin, </a>
+                        <a href="mailto:sandro.muelhauser@students.unibe.ch" target="_blank" class="impressum_link">Sandro M&uuml;lhauser</a>
+                    </p>
+                </div>
+			</div>
+            <!-- end of impressum -->
+            
+        </div>
+        <!-- end of content -->
+        
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+        <script type="text/javascript" src="js/d3.tip.v0.6.3.js"></script>
+        <script type="text/javascript" src="data/data.json"></script>
+        <script type="text/javascript" src="data/lineid.json"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+    </body>
+</html>
